@@ -7,16 +7,26 @@ pub enum Token {
     Footer(String)
 }
 
-struct CommitAst {
-    commit_type: Token,
-    scope: Token,
-    breaking: Token,
-    description: Token,
-    footer: Token
+pub(crate) struct CommitAst {
+    pub commit_type: Token,
+    pub scope: Token,
+    pub breaking: Token,
+    pub description: Token,
+    pub footer: Token
 }
 
-struct Version {
+pub struct Version {
     major: u32,
     minor: u32,
     patch: u32
+}
+
+impl CommitAst {
+    pub fn print_ast(&self) {
+        println!("Commit Type: {:?}", self.commit_type);
+        println!("Scope: {:?}", self.scope);
+        println!("Breaking: {:?}", self.breaking);
+        println!("Description: {:?}", self.description);
+        println!("Footer: {:?}", self.footer);
+    }
 }

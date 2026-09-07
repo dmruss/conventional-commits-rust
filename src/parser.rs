@@ -1,4 +1,5 @@
 use crate::types::Token;
+use crate::types::CommitAst;
 // This function takes a commit message string and returns a vector of tokens
 pub fn commit_string_parser(commit_msg: &str) -> Vec<Token> {
     let mut tokens: Vec<Token> = Vec::new();
@@ -50,3 +51,28 @@ pub fn commit_string_parser(commit_msg: &str) -> Vec<Token> {
 
     tokens
 }
+
+// This function takes a vector of tokens and returns a CommitAst struct
+pub fn tokens_to_ast(tokens: Vec<Token>) -> CommitAst {
+    let mut commit_type = Token::CommitType(String::new());
+    let mut scope = Token::Scope(String::new());
+    let mut breaking = Token::Breaking(false);
+    let mut description = Token::Description(String::new());
+    let mut footer = Token::Footer(String::new());
+    for token in tokens {
+        match token {
+            Token::CommitType(t) => commit_type = Token::CommitType(t),
+            Token::Scope(s) => scope = Token::Scope(s),
+            Token::Breaking(b) => breaking = Token::Breaking(b),
+            Token::Description(d) => description = Token::Description(d),
+            Token::Footer(f) => footer = Token::Footer(f),
+        }
+    }
+    CommitAst {
+        commit_type,
+        scope,
+        breaking,
+        description,
+        footer,
+    }
+}   
