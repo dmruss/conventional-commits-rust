@@ -66,4 +66,20 @@ impl Version {
             self.patch += 1;
         }
     }
+
+    pub fn to_string(&self) -> String {
+        format!("{}.{}.{}", self.major, self.minor, self.patch)
+    }
+}
+
+// take in next version and create a git tag for it
+pub fn create_git_tag(version: &Version) {
+    let tag_name = format!("v{}", version.to_string());
+    let output = std::process::Command::new("git")
+        .args(&["tag", &tag_name])
+        .output()
+        .expect("Failed to execute git command");
+    if !output.status.success() {
+        eprintln!("Failed to create git tag: {}", String::from_utf8_lossy(&output.stderr));
+    }
 }

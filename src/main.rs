@@ -2,6 +2,7 @@
 mod parser;
 mod types;
 mod semver;
+mod changelog;
 
 // This is the main entry point for the conventional-commits crate
 // It will parse the commit messages and return the next version number
@@ -37,6 +38,14 @@ fn main() {
 
     // increment version based on commits
     version.increment(commit_asts);
-    println!("Next version: {}.{}.{}", version.major, version.minor, version.patch);
-    
+    println!("Next version: {}", version.to_string());
+
+    // generate changelog from commits and version
+    let changelog = changelog::generate_changelog(commits, &version.to_string());
+    println!("Changelog:\n{}", changelog);
+    changelog::output_changelog(&changelog);
+
+    // create git tag for next version
+    let tag_name = format!("v{}", version.to_string());
+    semver::create_git_tag(&version);
 }
