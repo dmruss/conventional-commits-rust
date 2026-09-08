@@ -1,5 +1,5 @@
 // Changelog generation functions
-
+use std::io::Write;
 // generate changelog from commits and version
 pub fn generate_changelog(commits: Vec<String>, version: &str) -> String {
     let mut changelog = String::new();
