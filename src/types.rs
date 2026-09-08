@@ -16,9 +16,9 @@ pub(crate) struct CommitAst {
 }
 
 pub struct Version {
-    major: u32,
-    minor: u32,
-    patch: u32
+    pub major: u32,
+    pub minor: u32,
+    pub patch: u32
 }
 
 impl CommitAst {

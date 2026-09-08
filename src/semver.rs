@@ -1,5 +1,6 @@
 use crate::types::Version;
 use crate::types::CommitAst;
+use crate::types::Token;
 // Semantic Versioning functions
 // get most recent git tag version, if none, return 0.0.0
 pub fn get_most_recent_tag() -> String {
